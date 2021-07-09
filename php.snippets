@@ -1,7 +1,6 @@
 /**------------------------------------------------------------------------------
  * OUTPUT Snippets
  ------------------------------------------------------------------------------*/
-
 snippet = "A simple echo statement" b
 <?php echo "${1:Message}"; ?>
 endsnippet
@@ -13,3 +12,16 @@ endsnippet
 snippet == "A simple var-dump statement" b
 var_dump(${1:Message});
 endsnippet
+
+snippet d "A simple symfony/var-dumper statement" b
+dump(${1:Message});
+endsnippet
+
+snippet __c "PHP class constructor" A
+public function __construct()
+{
+	${1:initialize};
+}
+endsnippet
+
+
