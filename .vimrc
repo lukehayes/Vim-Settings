@@ -25,7 +25,6 @@ nmap <leader>asd :colorscheme base16-
 nmap <leader>aa :make && ./app<cr><cr>
 nmap <leader>a :make && ./app<cr>
 
-
 " --------------------------------------------------------------
 " Set Colour Scheme
 " --------------------------------------------------------------
