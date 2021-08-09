@@ -1,4 +1,3 @@
-
 " --------------------------------------------------------------
 " GENERAL
 " --------------------------------------------------------------
@@ -36,6 +35,16 @@ nmap <leader>a :make && ./app<cr>
 colorscheme proton
 
 " --------------------------------------------------------------
+" Font settings that I can choose depending on mood.
+" --------------------------------------------------------------
+"set guifont=Ubuntu\ Mono\ 13 " <-- Original/Default Setting
+"set guifont=League\ Mono\ Semi-Expanded\ 11
+"set guifont=Inconsolata\ 12
+set guifont=League\ Mono\ Condensed\ 12
+
+
+
+" --------------------------------------------------------------
 " UTILITY FUNCTIONS
 " --------------------------------------------------------------
 
@@ -60,6 +69,8 @@ function! SetGUI()
 endfunction
 
 call SetGUI()
+
+
 
 " --------------------------------------------------------------
 " Ultisnips
