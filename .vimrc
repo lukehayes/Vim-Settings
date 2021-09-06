@@ -82,3 +82,11 @@ let g:UltiSnipsExpandTrigger="<A-j>"
 "let g:UltiSnipsSnippetsDir="ultisnipscustom"
 "let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 "let g:UltiSnipsSnippetDirectories=['/home/luke/.vim/ultisnips'] 
+
+
+" Set color to 256 if terminal
+"
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
