@@ -41,7 +41,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/theme.lua")
+beautiful.useless_gaps = 20
 
 -- This is used later as the default terminal and editor to run.
 terminal = "st"
@@ -55,9 +56,12 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod1"
 
+
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
+    awful.layout.suit.spiral,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -65,7 +69,6 @@ local layouts =
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
@@ -265,7 +268,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "p",     function () awful.util.spawn("dmenu_run") end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -275,7 +278,7 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end),
+    awful.key({ modkey }, "r", function() menubar.show() end),
 
     -- Make Volume Keys Work
     --
