@@ -1,99 +1,279 @@
----------------------------
--- Default awesome theme --
----------------------------
+--[[
 
-theme = {}
+     Steamburn Awesome WM theme 3.0
+     github.com/lcpz
 
-theme.font          = "sans 8"
+--]]
 
-theme.bg_normal     = "#2E3440"
-theme.bg_focus      = "#4C566A"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
-theme.bg_systray    = theme.bg_normal
+local gears = require("gears")
+local lain  = require("lain")
+local awful = require("awful")
+local wibox = require("wibox")
+local dpi   = require("beautiful.xresources").apply_dpi
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+local os = os
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
-theme.border_width  = 1
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+local theme                                     = {}
+theme.zenburn_dir                               = require("awful.util").get_themes_dir() .. "zenburn"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/steamburn"
+theme.wallpaper                                 = theme.dir .. "/wall1.jpg"
+theme.font                                      = "League Mono 9.5"
+theme.fg_normal                                 = "#C0C5CE"
+theme.fg_focus                                  = "#FF0000"
+theme.fg_urgent                                 = "#CC9393"
+theme.bg_normal                                 = "#1b2b34"
+theme.bg_focus                                  = "#65737e"
+theme.bg_urgent                                 = "#2a1f1e"
+theme.border_width                              = dpi(1)
+theme.border_normal                             = "#302627"
+theme.border_focus                              = "#c2745b"
+theme.border_marked                             = "#CC9393"
+theme.taglist_fg_focus                          = "#C594C5"
+theme.taglist_bg_focus                          = "#343d46"
+theme.tasklist_fg_focus                         = "#CDD3DE"
+theme.tasklist_bg_focus                         = "#1b2b34"
+theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
+theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
+theme.menu_height                               = dpi(16)
+theme.menu_width                                = dpi(140)
+theme.awesome_icon                              = theme.dir .."/icons/awesome.png"
+theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.layout_txt_tile                           = "[t]"
+theme.layout_txt_tileleft                       = "[l]"
+theme.layout_txt_tilebottom                     = "[b]"
+theme.layout_txt_tiletop                        = "[tt]"
+theme.layout_txt_fairv                          = "[fv]"
+theme.layout_txt_fairh                          = "[fh]"
+theme.layout_txt_spiral                         = "[s]"
+theme.layout_txt_dwindle                        = "[d]"
+theme.layout_txt_max                            = "[m]"
+theme.layout_txt_fullscreen                     = "[F]"
+theme.layout_txt_magnifier                      = "[M]"
+theme.layout_txt_floating                       = "[|]"
+theme.tasklist_plain_task_name                  = true
+theme.tasklist_disable_icon                     = true
+theme.useless_gap                               = dpi(0)
+theme.titlebar_close_button_normal              = theme.zenburn_dir.."/titlebar/close_normal.png"
+theme.titlebar_close_button_focus               = theme.zenburn_dir.."/titlebar/close_focus.png"
+theme.titlebar_minimize_button_normal           = theme.zenburn_dir.."/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus            = theme.zenburn_dir.."/titlebar/minimize_focus.png"
+theme.titlebar_ontop_button_normal_inactive     = theme.zenburn_dir.."/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = theme.zenburn_dir.."/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = theme.zenburn_dir.."/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = theme.zenburn_dir.."/titlebar/ontop_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = theme.zenburn_dir.."/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = theme.zenburn_dir.."/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = theme.zenburn_dir.."/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = theme.zenburn_dir.."/titlebar/sticky_focus_active.png"
+theme.titlebar_floating_button_normal_inactive  = theme.zenburn_dir.."/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = theme.zenburn_dir.."/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = theme.zenburn_dir.."/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = theme.zenburn_dir.."/titlebar/floating_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = theme.zenburn_dir.."/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = theme.zenburn_dir.."/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active   = theme.zenburn_dir.."/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = theme.zenburn_dir.."/titlebar/maximized_focus_active.png"
 
--- There are other variable sets
--- overriding the default one when
--- defined, the sets are:
--- taglist_[bg|fg]_[focus|urgent|occupied|empty]
--- tasklist_[bg|fg]_[focus|urgent]
--- titlebar_[bg|fg]_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- mouse_finder_[color|timeout|animate_timeout|radius|factor]
--- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- lain related
+theme.layout_txt_termfair                       = "[termfair]"
+theme.layout_txt_centerfair                     = "[centerfair]"
 
--- Display the taglist squares
-theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
-theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
+local markup = lain.util.markup
+local gray   = "#94928F"
 
--- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
-theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
-theme.menu_height = 15
-theme.menu_width  = 100
+-- Textclock
+local mytextclock = wibox.widget.textclock(" %H:%M ")
+mytextclock.font = theme.font
 
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
+-- Calendar
+theme.cal = lain.widget.cal({
+    attach_to = { mytextclock },
+    notification_preset = {
+        font = "League Mono 9s",
+        fg   = theme.fg_normal,
+        bg   = theme.bg_normal
+    }
+})
 
--- Define the image to load
-theme.titlebar_close_button_normal = "/usr/share/awesome/themes/default/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = "/usr/share/awesome/themes/default/titlebar/close_focus.png"
+-- Mail IMAP check
+--[[ to be set before use
+theme.mail = lain.widget.imap({
+    timeout  = 180,
+    server   = "server",
+    mail     = "mail",
+    password = "keyring get mail",
+    settings = function()
+        mail  = ""
+        count = ""
 
-theme.titlebar_ontop_button_normal_inactive = "/usr/share/awesome/themes/default/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = "/usr/share/awesome/themes/default/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = "/usr/share/awesome/themes/default/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/ontop_focus_active.png"
+        if mailcount > 0 then
+            mail = "Mail "
+            count = mailcount .. " "
+        end
 
-theme.titlebar_sticky_button_normal_inactive = "/usr/share/awesome/themes/default/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = "/usr/share/awesome/themes/default/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = "/usr/share/awesome/themes/default/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/sticky_focus_active.png"
+        widget:set_markup(markup(gray, mail) .. count)
+    end
+})
+--]]
 
-theme.titlebar_floating_button_normal_inactive = "/usr/share/awesome/themes/default/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = "/usr/share/awesome/themes/default/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = "/usr/share/awesome/themes/default/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/floating_focus_active.png"
+-- MPD
+theme.mpd = lain.widget.mpd({
+    settings = function()
+        artist = mpd_now.artist .. " "
+        title  = mpd_now.title  .. " "
 
-theme.titlebar_maximized_button_normal_inactive = "/usr/share/awesome/themes/default/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
+        if mpd_now.state == "pause" then
+            artist = "mpd "
+            title  = "paused "
+        elseif mpd_now.state == "stop" then
+            artist = ""
+            title  = ""
+        end
 
-theme.wallpaper = "~/Pictures/Wallpapers/PlanProgress.png"
+        widget:set_markup(markup.font(theme.font, markup(gray, artist) .. title))
+    end
+})
 
--- You can use your own layout icons like this:
-theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
-theme.layout_fairv = "/usr/share/awesome/themes/default/layouts/fairvw.png"
-theme.layout_floating  = "/usr/share/awesome/themes/default/layouts/floatingw.png"
-theme.layout_magnifier = "/usr/share/awesome/themes/default/layouts/magnifierw.png"
-theme.layout_max = "/usr/share/awesome/themes/default/layouts/maxw.png"
-theme.layout_fullscreen = "/usr/share/awesome/themes/default/layouts/fullscreenw.png"
-theme.layout_tilebottom = "/usr/share/awesome/themes/default/layouts/tilebottomw.png"
-theme.layout_tileleft   = "/usr/share/awesome/themes/default/layouts/tileleftw.png"
-theme.layout_tile = "/usr/share/awesome/themes/default/layouts/tilew.png"
-theme.layout_tiletop = "/usr/share/awesome/themes/default/layouts/tiletopw.png"
-theme.layout_spiral  = "/usr/share/awesome/themes/default/layouts/spiralw.png"
-theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
+-- CPU
+local cpu = lain.widget.sysload({
+    settings = function()
+        widget:set_markup(markup.font(theme.font, markup(gray, " Cpu ") .. load_1 .. " "))
+    end
+})
 
-theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+-- MEM
+local mem = lain.widget.mem({
+    settings = function()
+        widget:set_markup(markup.font(theme.font, markup(gray, " Mem ") .. mem_now.used .. " "))
+    end
+})
 
--- Define the icon theme for application icons. If not set then the icons 
--- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+-- /home fs
+--[[ commented because it needs Gio/Glib >= 2.54
+theme.fs = lain.widget.fs({
+    partition = "/home",
+    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10.5" },
+})
+--]]
+
+-- Battery
+local bat = lain.widget.bat({
+    settings = function()
+        local perc = bat_now.perc
+        if bat_now.ac_status == 1 then perc = perc .. " Plug" end
+        widget:set_markup(markup.font(theme.font, markup(gray, " Bat ") .. perc .. " "))
+    end
+})
+
+-- Net checker
+local net = lain.widget.net({
+    settings = function()
+        if net_now.state == "up" then net_state = "On"
+        else net_state = "Off" end
+        widget:set_markup(markup.font(theme.font, markup(gray, " Net ") .. net_state .. " "))
+    end
+})
+
+-- ALSA volume
+theme.volume = lain.widget.alsa({
+    settings = function()
+        header = " Vol "
+        vlevel  = volume_now.level
+
+        if volume_now.status == "off" then
+            vlevel = vlevel .. "M "
+        else
+            vlevel = vlevel .. " "
+        end
+
+        widget:set_markup(markup.font(theme.font, markup(gray, header) .. vlevel))
+    end
+})
+
+-- Weather
+--[[ to be set before use
+theme.weather = lain.widget.weather({
+    --APPID =
+    city_id = 2643743, -- placeholder (London)
+})
+--]]
+
+-- Separators
+local first = wibox.widget.textbox(markup.font("Terminus 4", " "))
+local spr   = wibox.widget.textbox(' ')
+
+local function update_txt_layoutbox(s)
+    -- Writes a string representation of the current layout in a textbox widget
+    local txt_l = theme["layout_txt_" .. awful.layout.getname(awful.layout.get(s))] or ""
+    s.mytxtlayoutbox:set_text(txt_l)
+end
+
+function theme.at_screen_connect(s)
+    -- Quake application
+    s.quake = lain.util.quake({ app = awful.util.terminal })
+
+    -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
+    if type(wallpaper) == "function" then
+        wallpaper = wallpaper(s)
+    end
+    gears.wallpaper.maximized(wallpaper, s, true)
+
+    -- Tags
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+
+    -- Create a promptbox for each screen
+    s.mypromptbox = awful.widget.prompt()
+
+    -- Textual layoutbox
+    s.mytxtlayoutbox = wibox.widget.textbox(theme["layout_txt_" .. awful.layout.getname(awful.layout.get(s))])
+    awful.tag.attached_connect_signal(s, "property::selected", function () update_txt_layoutbox(s) end)
+    awful.tag.attached_connect_signal(s, "property::layout", function () update_txt_layoutbox(s) end)
+    s.mytxtlayoutbox:buttons(my_table.join(
+                           awful.button({}, 1, function() awful.layout.inc(1) end),
+                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
+                           awful.button({}, 3, function() awful.layout.inc(-1) end),
+                           awful.button({}, 4, function() awful.layout.inc(1) end),
+                           awful.button({}, 5, function() awful.layout.inc(-1) end)))
+
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+
+    -- Create a tasklist widget
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
+
+    -- Create the wibox
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18) })
+
+    -- Add widgets to the wibox
+    s.mywibox:setup {
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            first,
+            s.mytaglist,
+            spr,
+            s.mytxtlayoutbox,
+            --spr,
+            s.mypromptbox,
+            spr,
+        },
+        s.mytasklist, -- Middle widget
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+            wibox.widget.systray(),
+            spr,
+            --theme.mpd.widget,
+            --theme.mail.widget,
+            cpu.widget,
+            mem.widget,
+            --bat.widget,
+            --net.widget,
+            theme.volume.widget,
+            mytextclock
+        },
+    }
+end
 
 return theme
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
