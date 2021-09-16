@@ -1,5 +1,3 @@
---[[
-
      Steamburn Awesome WM theme 3.0
      github.com/lcpz
 
@@ -32,22 +30,22 @@ yellow     = "#f1fa8c"
 local theme                                     = {}
 theme.zenburn_dir                               = require("awful.util").get_themes_dir() .. "zenburn"
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/steamburn"
-theme.wallpaper                                 = theme.dir .. "/wall1.jpg"
-theme.font                                      = "League Mono 9.5"
-theme.fg_normal                                 = "#C0C5CE"
+theme.wallpaper                                 = theme.dir .. "/wall2.jpg"
+theme.font                                      = "League Mono 8.5"
+theme.fg_normal                                 = foreground
 theme.fg_focus                                  = "#FF0000"
 theme.fg_urgent                                 = "#CC9393"
-theme.bg_normal                                 = "#1b2b34"
+theme.bg_normal                                 = black
 theme.bg_focus                                  = "#65737e"
-theme.bg_urgent                                 = "#2a1f1e"
+theme.bg_urgent                                 = red
 theme.border_width                              = dpi(1)
-theme.border_normal                             = "#302627"
-theme.border_focus                              = "#c2745b"
+theme.border_normal                             = line_color
+theme.border_focus                              = purple
 theme.border_marked                             = "#CC9393"
-theme.taglist_fg_focus                          = "#C594C5"
-theme.taglist_bg_focus                          = "#343d46"
-theme.tasklist_fg_focus                         = "#CDD3DE"
-theme.tasklist_bg_focus                         = "#1b2b34"
+theme.taglist_fg_focus                          = purple
+theme.taglist_bg_focus                          = black
+theme.tasklist_fg_focus                         = purple
+theme.tasklist_bg_focus                         = black
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
 theme.menu_height                               = dpi(16)
@@ -95,7 +93,7 @@ theme.layout_txt_termfair                       = "[termfair]"
 theme.layout_txt_centerfair                     = "[centerfair]"
 
 local markup = lain.util.markup
-local gray   = "#94928F"
+local gray   = purple
 
 -- Textclock
 local mytextclock = wibox.widget.textclock(" %H:%M ")
@@ -105,7 +103,7 @@ mytextclock.font = theme.font
 theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
-        font = "LeagueMono 7s",
+        font = "LeagueMono 6s",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
