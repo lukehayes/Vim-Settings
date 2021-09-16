@@ -14,6 +14,21 @@ local dpi   = require("beautiful.xresources").apply_dpi
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
+
+-- Color Variables --
+black      = "#2A2a36"
+line_color = "#44475a"
+foreground = "#f8f8f2"
+comment    = "#6272a4"
+cyan       = "#8be9fd"
+green      = "#50fa7b"
+orange     = "#ffb86c"
+pink       = "#ff79c6"
+purple     = "#bd93f9"
+red        = "#ff5555"
+yellow     = "#f1fa8c"
+----------------------
+
 local theme                                     = {}
 theme.zenburn_dir                               = require("awful.util").get_themes_dir() .. "zenburn"
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/steamburn"
@@ -90,7 +105,7 @@ mytextclock.font = theme.font
 theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
-        font = "League Mono 9s",
+        font = "LeagueMono 7s",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
